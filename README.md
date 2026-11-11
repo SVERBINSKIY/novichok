@@ -117,13 +117,7 @@ npm run seed
    - Build Command: `npm install && npm run build`
    - Start Command: `npm start`
    - Healthcheck Path: `/health`
-4. В **Variables** добавьте `DEMO_MODE=true`, `NODE_ENV=production` и `SESSION_SECRET` со случайным длинным значением. Например, сгенерируйте его локально командой:
-
-   ```sh
-   node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
-   ```
-
-   Секрет храните только в Railway Variables — не добавляйте его в GitHub и не отправляйте в чат. `PORT` Railway задаёт автоматически.
+4. В **Variables** добавьте `DEMO_MODE=true` и `NODE_ENV=production`. `PORT` Railway задаёт автоматически. Секрет сессии приложение генерирует случайно при запуске; при желании можно задать свой `SESSION_SECRET` непосредственно в Railway Variables. Не храните его в GitHub.
 5. Запустите деплой. В настройках **Networking** нажмите **Generate Domain**, дождитесь статуса **Online** и откройте созданный адрес.
 6. Проверьте `/health`, затем главную страницу; демо-входы HR и руководителя доступны без пароля.
 

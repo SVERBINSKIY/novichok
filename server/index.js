@@ -12,6 +12,7 @@ import { texts } from '../client/src/texts.js';
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
+const sessionSecret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 const today = () => new Date().toISOString().slice(0, 10);
 const addDays = (date, days) => new Date(Date.parse(`${date}T00:00:00Z`) + days * 86400000).toISOString().slice(0, 10);
 const departments = texts.departments;
@@ -25,7 +26,7 @@ app.disable('x-powered-by');
 app.use(express.json({ limit: '30kb' }));
 app.use(session({
   name: 'novichok.sid',
-  secret: process.env.SESSION_SECRET || 'local-demo-secret-change-before-deploy',
+  secret: sessionSecret,
   resave: false,
   saveUninitialized: false,
   cookie: { httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production', maxAge: 8 * 60 * 60 * 1000 }
