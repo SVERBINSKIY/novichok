@@ -10,9 +10,5 @@ services:
         value: "20"
       - key: DEMO_MODE
         value: "true"
-      - key: HR_PASSWORD
-        sync: false
-      - key: BOSS_PASSWORD
-        sync: false
       - key: SESSION_SECRET
         generateValue: true
