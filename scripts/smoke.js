@@ -34,7 +34,7 @@ async function main() {
   const baseUrl = `http://127.0.0.1:${port}`;
   let logs = '';
   const child = spawn(process.execPath, ['server/index.js'], {
-    env: { ...process.env, PORT: String(port), DB_FILE: dbFile, DEMO_MODE: 'true', SESSION_SECRET: 'smoke-test-session-secret' },
+    env: { ...process.env, PORT: String(port), DB_FILE: dbFile, DEMO_MODE: 'true', NODE_ENV: 'production', SESSION_SECRET: 'smoke-test-session-secret' },
     stdio: ['ignore', 'pipe', 'pipe']
   });
   child.stdout.on('data', chunk => { logs += chunk.toString(); });
@@ -43,6 +43,7 @@ async function main() {
 
   const request = async (url, { method = 'GET', body, authenticated = false, expect = 200 } = {}) => {
     const headers = {};
+    headers['X-Forwarded-Proto'] = 'https';
     if (body !== undefined) headers['Content-Type'] = 'application/json';
     if (authenticated && cookie) headers.Cookie = cookie;
     const response = await fetch(`${baseUrl}${url}`, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });

@@ -23,6 +23,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 
 seedDatabase();
 app.disable('x-powered-by');
+app.set('trust proxy', 1);
 app.use(express.json({ limit: '30kb' }));
 app.use(session({
   name: 'novichok.sid',
